@@ -11,5 +11,8 @@ namespace Domain.Entities
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public List<UserShop> UserShops { get; set; }
+        public List<ShopProduct> ShopProducts { get; set; }
+        public List<ShopLocation> Locations { get; set; }
     }
 }

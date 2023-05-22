@@ -14,7 +14,7 @@ namespace Application.Common
         DbSet<OrderProduct> OrderProducts { get; set; }
         DbSet<ProductDictionary> ProductDictionary { get; set; }
         DbSet<Shop> Shops { get; set; }
-        DbSet<ShopLocations> ShopLocations { get; set; }
+        DbSet<ShopLocation> ShopLocations { get; set; }
         DbSet<ShopProduct> ShopProducts { get; set; }
         DbSet<UserShop> UserShops { get; set; }
         Task<int> SaveChangesAsync(CancellationToken token);

@@ -1,5 +1,6 @@
 ﻿using Application.Common;
 using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistance
 {
-    public class LogisticEFContext : IdentityDbContext<User, Role, Guid>, ILogisticEFContext
+    public class LogisticEFContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>, ILogisticEFContext
     {
         private IDbContextTransaction _currentTransaction;
 
@@ -27,7 +28,7 @@ namespace Infrastructure.Persistance
         public DbSet<OrderProduct> OrderProducts { get; set; }
         public DbSet<ProductDictionary> ProductDictionary { get; set; }
         public DbSet<Shop> Shops { get; set; }
-        public DbSet<ShopLocations> ShopLocations { get; set; }
+        public DbSet<ShopLocation> ShopLocations { get; set; }
         public DbSet<ShopProduct> ShopProducts { get; set; }
         public DbSet<UserShop> UserShops { get; set; }
 

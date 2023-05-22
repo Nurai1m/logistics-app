@@ -14,5 +14,9 @@ namespace Domain.Entities
         public string Patronymic { get; set; }
         public string Address { get; set; }
         public DateTime DateOfBirth { get; set; }
+
+        public List<UserShop> UserShops { get; set; }
+        public List<Order> CustomerOrders { get; set; }
+        public List<Order> CarrierOrders { get; set; }
     }
 }

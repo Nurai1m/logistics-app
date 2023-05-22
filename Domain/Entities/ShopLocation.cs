@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class ShopLocations : BaseEntity
+    public class ShopLocation : BaseEntity
     {
         public Guid ShopId { get; set; }
         public Shop Shop { get; set; }
