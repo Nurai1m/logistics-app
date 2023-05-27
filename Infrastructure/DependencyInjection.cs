@@ -1,5 +1,6 @@
-﻿using Application.Common;
+﻿using Application.Common.Interfaces;
 using Infrastructure.Persistance;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +15,9 @@ namespace Infrastructure
                 options.UseNpgsql(
                     configuration.GetConnectionString("Logistic"),
                     b => b.MigrationsAssembly("Infrastructure")));
+
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<LogisticEFContext>();
 
             services.AddScoped<ILogisticEFContext>(provider => provider.GetService<LogisticEFContext>());
 

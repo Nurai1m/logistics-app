@@ -1,0 +1,70 @@
+﻿@model RegisterCommand
+@{
+    Layout = "_LayoutSign";
+    ViewData["Title"] = "Регистрация";
+}
+<section>
+    <div class="page-header min-vh-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 start-0 text-center justify-content-center flex-column">
+                    <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center" style="background-image: url('../assets/img/illustrations/illustration-signup.jpg'); background-size: cover;">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
+                    <div class="card card-plain">
+                        <div class="card-header">
+                            <h4 class="font-weight-bolder">Sign Up</h4>
+                            <p class="mb-0">Enter your email and password to register</p>
+                        </div>
+                        <div class="card-body">
+                            <form asp-action="Register" method="post">
+                                <div class="input-group input-group-outline mb-3">
+                                    <label asp-for="@Model.Username" class="form-label">Логин</label>
+                                    <input asp-for="@Model.Username" type="text" class="form-control">
+                                </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <label asp-for="@Model.Firstname" class="form-label">Фамилия</label>
+                                    <input asp-for="@Model.Firstname" type="text" class="form-control">
+                                </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <label asp-for="@Model.Name" class="form-label">Имя</label>
+                                    <input asp-for="@Model.Name" type="text" class="form-control">
+                                </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <label asp-for="@Model.Patronymic" class="form-label">Отчество</label>
+                                    <input asp-for="@Model.Patronymic" type="text" class="form-control">
+                                </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <label asp-for="@Model.Address" class="form-label">Адрес</label>
+                                    <input asp-for="@Model.Address" type="text" class="form-control">
+                                </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <label asp-for="@Model.DateOfBirth" class="form-label">Дата рождения</label>
+                                    <input asp-for="@Model.DateOfBirth" type="date" class="form-control">
+                                </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <label asp-for="@Model.Password" class="form-label">Пароль</label>
+                                    <input asp-for="@Model.Password" type="password" class="form-control">
+                                </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <label asp-for="@Model.ConfirmPassword" class="form-label">Подтверждение пароля</label>
+                                    <input asp-for="@Model.ConfirmPassword" type="password" class="form-control">
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Зарегистрироваться</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                            <p class="mb-2 text-sm mx-auto">
+                                Уже есть аккаунт?
+                                <a href="@Url.Action("Login")" class="text-primary text-gradient font-weight-bold">Вход</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

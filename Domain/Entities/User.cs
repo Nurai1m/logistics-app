@@ -18,5 +18,7 @@ namespace Domain.Entities
         public List<UserShop> UserShops { get; set; }
         public List<Order> CustomerOrders { get; set; }
         public List<Order> CarrierOrders { get; set; }
+
+        public string Fullname => $"{Firstname} {Name} {Patronymic}";
     }
 }

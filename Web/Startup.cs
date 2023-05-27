@@ -1,6 +1,9 @@
 ﻿using Application;
+using Domain.Entities;
 using Infrastructure;
+using Infrastructure.Persistance;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 
 namespace Web
 {
@@ -15,12 +18,30 @@ namespace Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
             services.AddApplication()
                 .AddInfrastructure(Configuration);
 
             services.AddHttpContextAccessor();
             services
                 .AddControllersWithViews();
+
+            //services.AddScoped<SignInManager<User>, SignInManager<User>>();
+            //services.AddScoped<UserManager<User>, UserManager<User>>();
+
+            services.AddIdentity<User, IdentityRole<Guid>>(opts =>
+            {
+                opts.Lockout.AllowedForNewUsers = false;
+                opts.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+                opts.Lockout.MaxFailedAccessAttempts = 3;
+                opts.Password.RequiredLength = 8;
+                opts.Password.RequireNonAlphanumeric = false;
+                opts.Password.RequireLowercase = false;
+                opts.Password.RequireUppercase = false;
+                opts.Password.RequireDigit = false;
+            })
+                .AddEntityFrameworkStores<LogisticEFContext>();
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -42,6 +63,7 @@ namespace Web
             app.UseHsts();
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseRouting();
             app.UseAuthentication();
@@ -51,7 +73,7 @@ namespace Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }
