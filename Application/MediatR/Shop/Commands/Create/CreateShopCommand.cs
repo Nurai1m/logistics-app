@@ -25,15 +25,22 @@ namespace Application.MediatR.Shop.Commands
 
         public async Task<Result> Handle(CreateShopCommand request, CancellationToken cancellationToken)
         {
-            var shop = new Domain.Entities.Shop { Name = request.Name, Description = request.Description, Url = request.Url };
+            try
+            {
+                var shop = new Domain.Entities.Shop { Name = request.Name, Description = request.Description, Url = request.Url };
 
-            var userShop = new UserShop { UserId = _userService.Id };
-            shop.UserShops.Add(userShop);
+                var userShop = new UserShop { UserId = _userService.Id };
+                shop.UserShops.Add(userShop);
 
-            _context.Shops.Add(shop);
-            await _context.SaveChangesAsync(cancellationToken);
+                _context.Shops.Add(shop);
+                await _context.SaveChangesAsync(cancellationToken);
 
-            return Result.Success();
+                return Result.Success();
+            }
+            catch (Exception ex)
+            {
+                return Result.Failure("");
+            }
         }
     }
 }
