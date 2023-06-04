@@ -21,3 +21,11 @@ body {
   color: brown;
   font-size: 100px;
 }*/
+
+.active-highlighted td input {
+    border-color: #EC407A !important;
+}
+
+.active-highlighted td i {
+    color: #EC407A !important;
+}

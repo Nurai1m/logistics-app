@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Entities;
+using Infrastructure.Persistance.Seeds;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -85,7 +86,9 @@ namespace Infrastructure.Persistance
 
             base.OnModelCreating(builder);
 
-           //seeds
+            builder.AddRoleSeedData();
+            builder.AddUserSeedData();
+            builder.AddUserRoleSeedData();
         }
 
     }

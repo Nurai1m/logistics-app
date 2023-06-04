@@ -1,11 +1,7 @@
-﻿using Domain.Common;
-
-namespace Domain.Entities
+﻿namespace Application.Common.Dtos
 {
-    public class ShopLocation : BaseEntity
+    public class LocationDto
     {
-        public Guid ShopId { get; set; }
-        public Shop Shop { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public string Lat { get; set; }

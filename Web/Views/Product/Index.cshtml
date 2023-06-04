@@ -1,7 +1,7 @@
-﻿@model GetShopsQuery
+﻿@model GetProductsQuery
 
 @{
-    var shops = (List<ShopDto>)@ViewData["Shops"];
+    var products = (List<ProductDto>)@ViewData["Products"];
     @ViewData["Title"] = "Магазины";
 }
 
@@ -45,7 +45,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                      @foreach(var item in shops)
+                      @foreach(var item in products)
                       {
                       <tr>
                       <td>
@@ -59,7 +59,7 @@
                         <p class="text-xs font-weight-bold mb-0">@item.Description</p>
                       </td>
                       <td class="text-center">
-                        <p class="text-xs font-weight-bold mb-0">@item.Url</p>
+                        <p class="text-xs font-weight-bold mb-0">@item.VendorCode</p>
                       </td>
                       <td class="align-middle text-center text-sm">
                         <span class="badge badge-sm bg-gradient-success">Активный</span>

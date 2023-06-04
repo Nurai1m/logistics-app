@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(LogisticEFContext))]
-    partial class LogisticEFContextModelSnapshot : ModelSnapshot
+    [Migration("20230603103049_add-props")]
+    partial class addprops
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -255,6 +257,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Patronymic")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
@@ -274,10 +277,6 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
-                    b.Property<string>("VehicleInfo")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -288,103 +287,6 @@ namespace Infrastructure.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("b6dbe22d-cc2f-4063-88d9-280b0f951040"),
-                            AccessFailedCount = 0,
-                            Address = "admins address",
-                            ConcurrencyStamp = "1708A7F2-6382-4822-ACC6-76CFF580F950",
-                            DateOfBirth = new DateTime(2023, 6, 4, 20, 8, 25, 801, DateTimeKind.Local).AddTicks(4730),
-                            EmailConfirmed = false,
-                            Firstname = "Admin",
-                            LockoutEnabled = false,
-                            Name = "Admin",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAENZgTdclC0Y1h1LslS6CcwGY5lYbUv2lriaTU9mEr7KxMY9kvI+t2NmP9dbpl+8N8w==",
-                            Patronymic = "Admin",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "7C4733BF-0EC3-450D-888A-6CF4A2F570D7",
-                            TwoFactorEnabled = false,
-                            UserName = "Admin"
-                        },
-                        new
-                        {
-                            Id = new Guid("d9ba6ca2-e8ca-4444-8b1f-0d97ad04135a"),
-                            AccessFailedCount = 0,
-                            Address = "Исанова 1",
-                            ConcurrencyStamp = "FBC07588-ABB1-494C-B8AF-75C7D63B4AB5",
-                            DateOfBirth = new DateTime(1997, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EmailConfirmed = false,
-                            Firstname = "Искакова",
-                            LockoutEnabled = false,
-                            Name = "Нурайым",
-                            NormalizedUserName = "NURAIYM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMJiFxAovWfK0aijfr68SRlNjPbQkpFoCtEkLuWaP7RSzQ+j9TWo9wbb1wmmM7/8Mw==",
-                            Patronymic = "Нурлановна",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "283C1078-1EBF-48EC-A039-47A3DA91190E",
-                            TwoFactorEnabled = false,
-                            UserName = "nuraiym"
-                        },
-                        new
-                        {
-                            Id = new Guid("8eb818e5-6a31-4710-9532-aebb2194776f"),
-                            AccessFailedCount = 0,
-                            Address = "Уметалиева 2",
-                            ConcurrencyStamp = "096CCA44-C4C4-47E2-8DBC-B942FB5D2A28",
-                            DateOfBirth = new DateTime(1996, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EmailConfirmed = false,
-                            Firstname = "Мамбетов",
-                            LockoutEnabled = false,
-                            Name = "Кутман",
-                            NormalizedUserName = "KUTMAN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBhp9f+NtF6CNwkgCKvlPaKfofTxos9JPwTIFsRnRuCMIUJr6m6Ue4IiPTAyL6bhYg==",
-                            Patronymic = "Белекович",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "6E47ECB5-B32B-48E3-812E-C07DD22B59BD",
-                            TwoFactorEnabled = false,
-                            UserName = "kutman"
-                        },
-                        new
-                        {
-                            Id = new Guid("f6de83b9-76d9-4899-8a2c-f9bef0db8898"),
-                            AccessFailedCount = 0,
-                            Address = "Чуй 152",
-                            ConcurrencyStamp = "A856E503-1B54-4B7D-B09D-B33E80655E51",
-                            DateOfBirth = new DateTime(2000, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EmailConfirmed = false,
-                            Firstname = "Нурланов",
-                            LockoutEnabled = false,
-                            Name = "Нурхан",
-                            NormalizedUserName = "NURHAN",
-                            PasswordHash = "AQAAAAEAACcQAAAAED0BPplNECjEQNymCi0fDj39D5DVbzRHpzl5uDPGob4/wdoHibFJ7Qn+Qux6u0ZX+g==",
-                            Patronymic = "Нуралнович",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "CCE59880-F1BF-43C2-BD6A-1787C5A83E73",
-                            TwoFactorEnabled = false,
-                            UserName = "nurhan"
-                        },
-                        new
-                        {
-                            Id = new Guid("5ceffaa0-093f-4ce3-9a3d-0a8e6734b85e"),
-                            AccessFailedCount = 0,
-                            Address = "Манаса 52",
-                            ConcurrencyStamp = "6D2C5F0A-AAB4-4F45-BE91-28D9129A10E8",
-                            DateOfBirth = new DateTime(1999, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EmailConfirmed = false,
-                            Firstname = "Иванов",
-                            LockoutEnabled = false,
-                            Name = "Николай",
-                            NormalizedUserName = "NIKOLAY",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE2OUgjkBYY7MDk51Cl5NEK5HdaGJ8IOBc8euhkXYT81gndXIDsbkJWFMFiifMuWnQ==",
-                            Patronymic = "Васильевич",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "1214702B-6B5E-42B2-A7B8-78B7EC12CB46",
-                            TwoFactorEnabled = false,
-                            UserName = "nikolay"
-                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.UserShop", b =>
@@ -433,43 +335,6 @@ namespace Infrastructure.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("84028dce-99cd-4351-bb36-1514c6592e54"),
-                            ConcurrencyStamp = "24B4F638-0C83-4526-A143-8E6A3E3F4301",
-                            Name = "admin",
-                            NormalizedName = "admin"
-                        },
-                        new
-                        {
-                            Id = new Guid("7b68a169-3cf0-403d-a5b9-8bcf8319ca13"),
-                            ConcurrencyStamp = "24B4F638-0C83-4526-A143-8E6A3E3F4301",
-                            Name = "carrier",
-                            NormalizedName = "carrier"
-                        },
-                        new
-                        {
-                            Id = new Guid("df172293-c03c-462d-be88-ba9ad41c8cf7"),
-                            ConcurrencyStamp = "166C78CC-189E-451C-9944-DE606C116709",
-                            Name = "client",
-                            NormalizedName = "client"
-                        },
-                        new
-                        {
-                            Id = new Guid("7056419c-e665-4a17-b88c-e5a41237e0fb"),
-                            ConcurrencyStamp = "F96B067C-C796-477D-A5EB-3633258DF11E",
-                            Name = "employee",
-                            NormalizedName = "employee"
-                        },
-                        new
-                        {
-                            Id = new Guid("5ba00775-fb4a-49a9-a1c4-9c41fc2136dc"),
-                            ConcurrencyStamp = "7B7C2902-1849-4383-A5E1-375923A47DC3",
-                            Name = "shopOwner",
-                            NormalizedName = "shopOwner"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -554,33 +419,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = new Guid("b6dbe22d-cc2f-4063-88d9-280b0f951040"),
-                            RoleId = new Guid("84028dce-99cd-4351-bb36-1514c6592e54")
-                        },
-                        new
-                        {
-                            UserId = new Guid("d9ba6ca2-e8ca-4444-8b1f-0d97ad04135a"),
-                            RoleId = new Guid("df172293-c03c-462d-be88-ba9ad41c8cf7")
-                        },
-                        new
-                        {
-                            UserId = new Guid("8eb818e5-6a31-4710-9532-aebb2194776f"),
-                            RoleId = new Guid("5ba00775-fb4a-49a9-a1c4-9c41fc2136dc")
-                        },
-                        new
-                        {
-                            UserId = new Guid("f6de83b9-76d9-4899-8a2c-f9bef0db8898"),
-                            RoleId = new Guid("7056419c-e665-4a17-b88c-e5a41237e0fb")
-                        },
-                        new
-                        {
-                            UserId = new Guid("5ceffaa0-093f-4ce3-9a3d-0a8e6734b85e"),
-                            RoleId = new Guid("7b68a169-3cf0-403d-a5b9-8bcf8319ca13")
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>

@@ -11,9 +11,10 @@ namespace Domain.Entities
     {
         public string Firstname { get; set; }
         public string Name { get; set; }
-        public string Patronymic { get; set; }
+        public string? Patronymic { get; set; }
         public string Address { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public string? VehicleInfo { get; set; }
 
         public List<UserShop> UserShops { get; set; }
         public List<Order> CustomerOrders { get; set; }

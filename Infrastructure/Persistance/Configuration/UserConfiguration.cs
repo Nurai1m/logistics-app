@@ -18,6 +18,7 @@ namespace Infrastructure.Persistance.Configuration
             builder.Property(x => x.Patronymic).HasMaxLength(200);
             builder.Property(x => x.Address).IsRequired().HasMaxLength(1000);
             builder.Property(x => x.DateOfBirth).IsRequired();
+            builder.Property(x => x.VehicleInfo).HasMaxLength(200);
         }
     }
 }

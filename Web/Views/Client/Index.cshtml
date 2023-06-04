@@ -1,0 +1,74 @@
+﻿@model GetClientsQuery
+
+@{
+    var clients = (List<ClientDto>)@ViewData["Clients"];
+    @ViewData["Title"] = "Клиенты";
+}
+
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+        <div class="container-fluid py-1 px-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+                </ol>
+                <h6 class="font-weight-bolder mb-0">@ViewData["Title"]</h6>
+            </nav>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3">@ViewData["Title"]</h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th width="20%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ФИО</th>
+                                        <th width="30%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Адрес</th>
+                                        <th width="20%" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Телефон</th>
+                                        <th width="10%" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Количество заказов</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if(clients != null)
+                                    {
+                                    @foreach (var item in clients)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center px-2">
+                                                        <h6 class="mb-0 text-sm">@item.Fullname</h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0">@item.Address</p>
+                                            </td>
+                                            <td class="text-center">
+                                                <p class="text-xs font-weight-bold mb-0">@item.Phone</p>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="badge badge-sm bg-gradient-success">@item.Amount</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

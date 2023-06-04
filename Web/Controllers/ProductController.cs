@@ -1,24 +1,24 @@
-﻿using Application.MediatR.Shop.Commands;
-using Application.MediatR.Shop.Queries;
+﻿using Application.MediatR.ProductDictionary.Commands;
+using Application.MediatR.ProductDictionary.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
-    public class ShopController : Controller
+    public class ProductController : Controller
     {
         private IMediator Mediator;
 
-        public ShopController(IMediator mediator)
+        public ProductController(IMediator mediator)
         {
             Mediator = mediator;
         }
 
-        public async Task<IActionResult> Index(GetShopsQuery query)
+        public async Task<IActionResult> Index()
         {
-            var result = await Mediator.Send(query);
-            ViewData["Shops"] = result;
-            return View(query);
+            ViewData["Products"] = await Mediator.Send(new GetProductsQuery());
+
+            return View();
         }
 
         public IActionResult Create()
@@ -27,7 +27,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateShopCommand command)
+        public async Task<IActionResult> Create(CreateProductDictionaryCommand command)
         {
             if (ModelState.IsValid)
             {

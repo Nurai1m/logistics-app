@@ -1,0 +1,60 @@
+﻿@*@model AddShopProductCommand
+
+@{
+    ViewData["Title"] = "Добавление товара в магазин";
+
+    var shops = (List<ShopDto>)ViewData["Shops"];
+    var products = (List<ProductDto>)ViewData["Products"];
+}
+
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+        <div class="container-fluid py-1 px-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">@ViewData["Title"]</li>
+                </ol>
+            </nav>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <form asp-action="Create" method="post">
+                    <div class="card mt-4">
+                        <div class="card-header p-3">
+                            <h5 class="mb-0">@ViewData["Title"]</h5>
+                        </div>
+                        <div class="card-body pb-0">
+                            <div class="row mb-3">
+                                <div class="input-group input-group-outline mb-3">
+                                    <label asp-for="@Model.CustomerId" class="ms-0">Example select</label>
+                                    <select asp-for="@Model.CustomerId" asp-items="@(new SelectList(customers, "Id", "Fullname"))" class="form-control">
+                                    </select>
+                                </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <label class="form-label">Описание</label>
+                                    <input asp-for="@Model.Description" class="form-control">
+                                </div>
+                                <div class="input-group input-group-outline mb-3">
+                                    <label class="form-label">Вендорный код</label>
+                                    <input asp-for="@Model.VendorCode" class="form-control">
+                                </div>
+                                <div class="col-3">
+                                    <button class="btn bg-gradient-success w-100 mb-0 toast-btn" type="submit">Сохранить</button>
+                                </div>
+                                <div class="col-3">
+                                    <a asp-action="Index" class="btn bg-gradient-dark w-100 mb-0">Назад</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+*@
