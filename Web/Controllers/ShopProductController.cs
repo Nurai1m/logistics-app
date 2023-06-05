@@ -1,4 +1,6 @@
-﻿using Application.MediatR.ShopProducts.Commands;
+﻿using Application.MediatR.ProductDictionary.Queries;
+using Application.MediatR.Shop.Queries;
+using Application.MediatR.ShopProducts.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,9 +20,12 @@ namespace Web.Controllers
             return View();
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            ViewData["Shops"] = await Mediator.Send(new GetShopsQuery());
+            ViewData["Products"] = await Mediator.Send(new GetProductsQuery());
+
+            return View(new AddShopProductCommand());
         }
 
         [HttpPost]

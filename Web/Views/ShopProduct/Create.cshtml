@@ -1,10 +1,14 @@
-﻿@*@model AddShopProductCommand
+﻿@model AddShopProductCommand
 
 @{
     ViewData["Title"] = "Добавление товара в магазин";
 
+    var shopProducts = Model?.ShopProducts;
+
     var shops = (List<ShopDto>)ViewData["Shops"];
     var products = (List<ProductDto>)ViewData["Products"];
+
+    int index = shopProducts?.Count - 1 ?? 0;
 }
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -29,20 +33,82 @@
                             <h5 class="mb-0">@ViewData["Title"]</h5>
                         </div>
                         <div class="card-body pb-0">
+                            <div class="row">
+                                <div class="col-12">
+                                    <table class="table" id="locationTable">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Магазин</th>
+                                                <th scope="col">Товар</th>
+                                                <th scope="col">Количество</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (shopProducts != null && shopProducts.Count > 0)
+                                            {
+                                                for (int i = 0; i < shopProducts.Count; i++)
+                                                {
+                                                    <tr>
+                                                        <td hidden><input name="shopProducts.Index" value="@i" /></td>
+                                                        <td>
+                                                            <div class="input-group input-group-outline mb-3">
+                                                                <select asp-for="@shopProducts[i].ShopId" asp-items="@(new SelectList(shops, "Id", "Name"))" class="form-control">
+                                                                </select>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group input-group-outline mb-3">
+                                                                <select asp-for="@shopProducts[i].ProductId" asp-items="@(new SelectList(products, "Id", "Name"))" class="form-control">
+                                                                </select>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group input-group-outline mb-3">
+                                                                <input asp-for="@shopProducts[i].Amount" class="form-control">
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <i class="i-Close text-light text-25 cursor-pointer delete-btn"></i>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td hidden><input name="shopProducts.Index" value="@index" /></td>
+                                                    <td>
+                                                        <div class="input-group input-group-outline mb-3">
+                                                            <select name="shopProducts[@index].shopId" asp-items="@(new SelectList(shops, "Id", "Name"))" class="form-control">
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group input-group-outline mb-3">
+                                                            <select name="shopProducts[@index].productId" asp-items="@(new SelectList(products, "Id", "Name"))" class="form-control">
+                                                            </select>                                                        
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group input-group-outline mb-3">
+                                                            <input name="shopProducts[@index].amount" class="form-control">
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-link text-dark pt-2 fixed-plugin-close-button">
+                                                            <i class="material-icons">clear</i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <button id="addRecordBtn" type="button" class="btn btn-primary float-right mb-4"><i class="i-Add mr-2"></i>Добавить запись</button>
+
+                                </div>
+                            </div>
                             <div class="row mb-3">
-                                <div class="input-group input-group-outline mb-3">
-                                    <label asp-for="@Model.CustomerId" class="ms-0">Example select</label>
-                                    <select asp-for="@Model.CustomerId" asp-items="@(new SelectList(customers, "Id", "Fullname"))" class="form-control">
-                                    </select>
-                                </div>
-                                <div class="input-group input-group-outline mb-3">
-                                    <label class="form-label">Описание</label>
-                                    <input asp-for="@Model.Description" class="form-control">
-                                </div>
-                                <div class="input-group input-group-outline mb-3">
-                                    <label class="form-label">Вендорный код</label>
-                                    <input asp-for="@Model.VendorCode" class="form-control">
-                                </div>
                                 <div class="col-3">
                                     <button class="btn bg-gradient-success w-100 mb-0 toast-btn" type="submit">Сохранить</button>
                                 </div>
@@ -57,4 +123,50 @@
         </div>
     </div>
 </main>
-*@
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script>
+    var index = @index;
+
+    $('#addRecordBtn').on('click', function() {
+        index++;
+        $('#locationTable tbody').append(
+            '<tr>' +
+            '<td hidden>' +
+            '<input name="shopProducts.Index" value="' + index + '" />' +
+            '</td>' +
+            '<td>' +
+            '<div class="input-group input-group-outline mb-3">'
+            '<select id="shopSelect_'+ index +'" name="shopProducts[' + index + '].shopId" class="form-control">'
+            '</select>'
+            '</div>'
+            '<div class="input-group input-group-outline mb-3">' +
+            '<input class="form-control" style="min-width: 140px;" name="locations[' + index + '].name"' +
+            '</div>' +
+            '</td>' +
+            '<td>' +
+            '<div class="input-group input-group-outline mb-3">' +
+            '<textarea class="form-control" style="min-width: 140px;" name="locations[' + index + '].address"></textarea>' +
+            '</div>' +
+            '</td>' +
+            '<td>' +
+            '<div class="input-group input-group-outline mb-3">' +
+            '<input class="form-control" style="min-width: 140px;" name="locations[' + index + '].lat">' +
+            '</div>' +
+            '</td>' +
+            '<td>' +
+            '<div class="input-group input-group-outline mb-3">' +
+            '<input class="form-control" style="min-width: 140px;" name="locations[' + index + '].lang">' +
+            '</div>' +
+            '</td>' +
+            '<td>' +
+            '<button class="btn btn-link text-dark pt-2 fixed-plugin-close-button">' +
+            '<i class="material-icons">clear</i>' +
+            '</button>' +
+            '</td>' +
+            '</tr>'
+        );
+    })
+</script>

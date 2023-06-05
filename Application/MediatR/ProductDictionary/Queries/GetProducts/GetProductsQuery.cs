@@ -30,6 +30,7 @@ namespace Application.MediatR.ProductDictionary.Queries
             List<ProductDto> productDtos = products.Select(x =>
             new ProductDto
             {
+                Id = x.Id,
                 Name = x.Name,
                 Description = x.Description,
                 VendorCode = x.VendorCode,
