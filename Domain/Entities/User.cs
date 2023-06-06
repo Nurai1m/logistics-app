@@ -21,5 +21,7 @@ namespace Domain.Entities
         public List<Order> CarrierOrders { get; set; }
 
         public string Fullname => $"{Firstname} {Name} {Patronymic}";
+
+        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

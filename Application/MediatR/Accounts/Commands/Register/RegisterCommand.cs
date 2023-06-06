@@ -22,21 +22,25 @@ namespace Application.MediatR.Accounts.Commands
         public string Username { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
+        public Guid RoleId { get; set; }
     }
 
     public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Result>
     {
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
         private readonly ILogisticEFContext _context;
         private readonly ILogger<RegisterCommandHandler> _logger;
 
         public RegisterCommandHandler(UserManager<User> userManager,
+                RoleManager<Role> roleManager,
                                       ILogisticEFContext context,
                                       ILogger<RegisterCommandHandler> logger)
         {
             _userManager = userManager;
             _context = context;
             _logger = logger;
+            _roleManager = roleManager;
         }
 
         public async Task<Result> Handle(RegisterCommand request, CancellationToken cancellationToken)
@@ -64,6 +68,10 @@ namespace Application.MediatR.Accounts.Commands
                 user.UserName = request.Username;
 
                 var result = await _userManager.CreateAsync(user, request.Password);
+
+                var roles = _roleManager.Roles.Where(x => x.Id == request.RoleId).Select(x=>x.Name).ToList();
+
+                await _userManager.AddToRolesAsync(user, (IEnumerable<string>)roles);
 
                 return Result.Success("Вы успешно зарегистрированы. Ожидайте подтверждения аккаунта.");
 

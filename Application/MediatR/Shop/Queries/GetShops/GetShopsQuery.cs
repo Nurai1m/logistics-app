@@ -31,7 +31,7 @@ namespace Application.MediatR.Shop.Queries
             List<ShopDto> shopDtos = shops.Select(x =>
             new ShopDto
             {
-                Id = x.Id,
+                Id = x.Shop.Id,
                 Name = x.Shop.Name,
                 Description = x.Shop.Description,
                 Url = x.Shop.Url

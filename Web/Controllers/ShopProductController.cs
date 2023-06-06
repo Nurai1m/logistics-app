@@ -1,6 +1,7 @@
 ﻿using Application.MediatR.ProductDictionary.Queries;
 using Application.MediatR.Shop.Queries;
 using Application.MediatR.ShopProducts.Commands;
+using Application.MediatR.ShopProducts.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,13 +16,15 @@ namespace Web.Controllers
             Mediator = mediator;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewData["ShopProducts"] = await Mediator.Send(new GetShopProductsQuery());
             return View();
         }
 
         public async Task<IActionResult> Create()
         {
+            var aaa = await Mediator.Send(new GetShopsQuery());
             ViewData["Shops"] = await Mediator.Send(new GetShopsQuery());
             ViewData["Products"] = await Mediator.Send(new GetProductsQuery());
 

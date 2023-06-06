@@ -30,11 +30,8 @@ namespace Web
             //services.AddScoped<SignInManager<User>, SignInManager<User>>();
             //services.AddScoped<UserManager<User>, UserManager<User>>();
 
-            services.AddIdentity<User, IdentityRole<Guid>>(opts =>
+            services.AddIdentity<User, Role>(opts =>
             {
-                opts.Lockout.AllowedForNewUsers = false;
-                opts.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
-                opts.Lockout.MaxFailedAccessAttempts = 3;
                 opts.Password.RequiredLength = 8;
                 opts.Password.RequireNonAlphanumeric = false;
                 opts.Password.RequireLowercase = false;

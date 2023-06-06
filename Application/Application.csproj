@@ -20,7 +20,6 @@
 
 	<ItemGroup>
 	  <Folder Include="Common\Extensions\" />
-	  <Folder Include="MediatR\Accounts\Queries\" />
 	</ItemGroup>
 	
 </Project>

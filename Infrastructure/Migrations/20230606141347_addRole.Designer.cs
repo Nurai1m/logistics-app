@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(LogisticEFContext))]
-    partial class LogisticEFContextModelSnapshot : ModelSnapshot
+    [Migration("20230606141347_addRole")]
+    partial class addRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -370,13 +372,13 @@ namespace Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = "admins address",
                             ConcurrencyStamp = "1708A7F2-6382-4822-ACC6-76CFF580F950",
-                            DateOfBirth = new DateTime(2023, 6, 6, 22, 17, 11, 706, DateTimeKind.Local).AddTicks(6628),
+                            DateOfBirth = new DateTime(2023, 6, 6, 20, 13, 47, 136, DateTimeKind.Local).AddTicks(312),
                             EmailConfirmed = false,
                             Firstname = "Admin",
                             LockoutEnabled = false,
                             Name = "Admin",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAECQOBb4zKXF/D4yKtJG1as3URMCRvfG+no6UwFxxfW+LOVh0Y4u9s2qjjSlusEb4cw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELnBvlE4+W/w5AcHzmxbPu6MuUiQLhAFi1G05c2+bmst7JXv225guhVXk2XiuZlnNg==",
                             Patronymic = "Admin",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7C4733BF-0EC3-450D-888A-6CF4A2F570D7",
@@ -395,7 +397,7 @@ namespace Infrastructure.Migrations
                             LockoutEnabled = false,
                             Name = "Нурайым",
                             NormalizedUserName = "NURAIYM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEB+59B7Nn0T6Hqj85Rac6NeOXP+4yCobolTzfFsaPwImgAGsifCKgV85t/H9ZyfwVg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBileRURHQb+naR0JWx77GH9oXxBqSACd7LCss+BaFTU1oNUlNPrng9bk988XsGKyA==",
                             Patronymic = "Нурлановна",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "283C1078-1EBF-48EC-A039-47A3DA91190E",
@@ -414,7 +416,7 @@ namespace Infrastructure.Migrations
                             LockoutEnabled = false,
                             Name = "Кутман",
                             NormalizedUserName = "KUTMAN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAZFaAB2GLcb0aJg+mCDEQq3IU674/2xacMyjpj9fkD3+AHMmwAcGHf4Bb+ST2Th9Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBnq4T6MTuAnZeL87lxnwJyTavNjyVDWyd5QeuTmAJmJ+XInP1wTrF3Dm0bN7cwcpA==",
                             Patronymic = "Белекович",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "6E47ECB5-B32B-48E3-812E-C07DD22B59BD",
@@ -433,7 +435,7 @@ namespace Infrastructure.Migrations
                             LockoutEnabled = false,
                             Name = "Нурхан",
                             NormalizedUserName = "NURHAN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFZXiVV6/DV3vtDCstNKgNzRRZy6CLgCUqwtmAR1p3Vk74mTXxBdudHx/twjQExCCw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAM+rALmryPt5jJc6UpB9YmfvUd9+yvr0r37c/U57Xufp2nsM43TE7IcYpjPM4LB1A==",
                             Patronymic = "Нуралнович",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "CCE59880-F1BF-43C2-BD6A-1787C5A83E73",
@@ -452,7 +454,7 @@ namespace Infrastructure.Migrations
                             LockoutEnabled = false,
                             Name = "Николай",
                             NormalizedUserName = "NIKOLAY",
-                            PasswordHash = "AQAAAAEAACcQAAAAECWexzIkbET7GQwhfrg1rLSxqhh7L3rlq9ioTOnbrZTB0rqR/kH+cqVNuI00gZVE7w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJI6jeBKjiuPH3R3z4OG/lWBy7uueUm3oLveXvjOMinN+qp6A5SxSsJ/kbkz/+HNng==",
                             Patronymic = "Васильевич",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "1214702B-6B5E-42B2-A7B8-78B7EC12CB46",
@@ -559,17 +561,11 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserRole<Guid>");
 
                     b.HasData(
                         new
@@ -616,23 +612,6 @@ namespace Infrastructure.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.UserRole", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>");
-
-                    b.Property<Guid>("RoleId1")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UserId1")
-                        .HasColumnType("uuid");
-
-                    b.HasIndex("RoleId1");
-
-                    b.HasIndex("UserId1");
-
-                    b.HasDiscriminator().HasValue("UserRole");
                 });
 
             modelBuilder.Entity("Domain.Entities.Order", b =>
@@ -777,25 +756,6 @@ namespace Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Domain.Entities.UserRole", b =>
-                {
-                    b.HasOne("Domain.Entities.Role", "Role")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("RoleId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.User", "User")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("UserId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Domain.Entities.Order", b =>
                 {
                     b.Navigation("OrderProducts");
@@ -809,11 +769,6 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.ProductDictionary", b =>
                 {
                     b.Navigation("ShopProducts");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Role", b =>
-                {
-                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("Domain.Entities.Shop", b =>
@@ -835,8 +790,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("CarrierOrders");
 
                     b.Navigation("CustomerOrders");
-
-                    b.Navigation("UserRoles");
 
                     b.Navigation("UserShops");
                 });

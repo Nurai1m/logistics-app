@@ -1,4 +1,5 @@
 ﻿using Application.MediatR.Accounts.Commands;
+using Application.MediatR.Accounts.Queries.GetRoles;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -44,8 +45,10 @@ namespace Web.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
+            ViewData["Roles"] = await Mediator.Send(new GetRolesQuery());
+
             return View();
         }
 

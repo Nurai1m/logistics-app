@@ -1,8 +1,8 @@
-﻿@model GetProductsQuery
+﻿@model GetShopProductsQuery
 
 @{
-    var products = (List<ProductDto>)@ViewData["Products"];
-    @ViewData["Title"] = "Справочник товаров";
+    var shopProducts = (List<ShopProductViewDto>)@ViewData["ShopProducts"];
+    @ViewData["Title"] = "Товары в магазине";
 }
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -21,7 +21,7 @@
     <div class="container-fluid py-4">
         <div class="row my-2">
             <div class="col-6">
-                <a class="btn btn-outline-primary btn-sm mb-0 me-3" href="@Url.Action("Create")">Создать новый</i></a>
+                 <a class="btn btn-outline-primary btn-sm mb-0 me-3" href="@Url.Action("Create")">Создать новый</i></a>
             </div>
         </div>
         <div class="row">
@@ -37,39 +37,32 @@
                             <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
-                                        <th width="20%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Наименование</th>
-                                        <th width="20%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Описание</th>
-                                        <th width="30%" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ссылка</th>
-                                        <th width="10%" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Активность</th>
-                                        <th width="20%" class="text-secondary opacity-7"></th>
+                                        <th width="20%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Магазин</th>
+                                        <th width="30%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Товар</th>
+                                        <th width="20%" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Количество</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in products)
+                                    @if(shopProducts != null)
+                                    {
+                                    @foreach (var item in shopProducts)
                                     {
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center px-2">
-                                                        <h6 class="mb-0 text-sm">@item.Name</h6>
+                                                        <h6 class="mb-0 text-sm">@item.ShopName</h6>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0">@item.Description</p>
+                                                <p class="text-xs font-weight-bold mb-0">@item.ProductName</p>
                                             </td>
                                             <td class="text-center">
-                                                <p class="text-xs font-weight-bold mb-0">@item.VendorCode</p>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <span class="badge badge-sm bg-gradient-success">Активный</span>
-                                            </td>
-                                            <td class="align-middle">
-                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Редактировать">
-                                                    Редактировать
-                                                </a>
+                                                <p class="text-xs font-weight-bold mb-0">@item.Amount</p>
                                             </td>
                                         </tr>
+                                    }
                                     }
                                 </tbody>
                             </table>

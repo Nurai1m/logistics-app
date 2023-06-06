@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistance
 {
-    public class LogisticEFContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>, ILogisticEFContext
+    public class LogisticEFContext : IdentityDbContext<User, Role, Guid>, ILogisticEFContext
     {
         private IDbContextTransaction _currentTransaction;
 
