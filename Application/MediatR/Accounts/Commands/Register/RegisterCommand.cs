@@ -28,12 +28,12 @@ namespace Application.MediatR.Accounts.Commands
     public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Result>
     {
         private readonly UserManager<User> _userManager;
-        private readonly RoleManager<Role> _roleManager;
+        private readonly RoleManager<IdentityRole<Guid>> _roleManager;
         private readonly ILogisticEFContext _context;
         private readonly ILogger<RegisterCommandHandler> _logger;
 
         public RegisterCommandHandler(UserManager<User> userManager,
-                RoleManager<Role> roleManager,
+                RoleManager<IdentityRole<Guid>> roleManager,
                                       ILogisticEFContext context,
                                       ILogger<RegisterCommandHandler> logger)
         {

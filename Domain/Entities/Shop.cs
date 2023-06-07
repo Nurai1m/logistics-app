@@ -10,5 +10,6 @@ namespace Domain.Entities
         public List<UserShop> UserShops { get; set; }
         public List<ShopProduct> ShopProducts { get; set; }
         public List<ShopLocation> Locations { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }

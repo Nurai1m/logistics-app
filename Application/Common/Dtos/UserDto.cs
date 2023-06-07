@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.MediatR.Clients.Queries
+﻿namespace Application.Common.Dtos
 {
-    public class ClientDto
+    public class UserDto
     {
         public Guid Id { get; set; }
         public string Fullname { get; set; }

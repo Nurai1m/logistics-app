@@ -30,7 +30,7 @@ namespace Web
             //services.AddScoped<SignInManager<User>, SignInManager<User>>();
             //services.AddScoped<UserManager<User>, UserManager<User>>();
 
-            services.AddIdentity<User, Role>(opts =>
+            services.AddIdentity<User, IdentityRole<Guid>>(opts =>
             {
                 opts.Password.RequiredLength = 8;
                 opts.Password.RequireNonAlphanumeric = false;

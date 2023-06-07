@@ -1,0 +1,111 @@
+﻿@model IList<ShopDto>
+
+@{
+    ViewData["Title"] = "Список магазинов";
+    int i = 1;
+}
+
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+        <div class="container-fluid py-1 px-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+                    <li class="breadcrumb-item text-sm text-dark active" aria-current="page">@ViewData["Title"]</li>
+                </ol>
+            </nav>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-lg-9 col-md-9 mx-auto">
+                <form asp-action="Create" method="post">
+                    <div class="card mt-4">
+                        <div class="card-header p-3">
+                            <h5 class="mb-0">Выберите магазин из которого будет оформлен заказ</h5>
+                        </div>
+                        <div class="card-body pb-0">
+                            <h6 class="card-title mb-3">@ViewData["Title"]</h6>
+                            <div class="table-responsive">
+                                @if (Model.Any())
+                                {
+                                    @*<table class="table toggle-arrow-tiny mt-4 " id="facility-data" data-striping="false">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Наименование</th>
+                                                <th>Описание</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>@(i++)</td>
+                                                    <td><b>@item.Name</b></td>
+                                                    <td>@item.Description</td>
+                                                    <td class="text-right">
+                                                        <a asp-action="Create" asp-route-id="@item.Id" class="btn btn-sm btn-primary" type="button">
+                                                            Выбрать
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>*@
+                                    <table class="table align-items-center mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th width="25%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
+                                                <th width="25%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Наименование</th>
+                                                <th width="25%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Описание</th>
+                                                <th width="25%" class="text-secondary opacity-7"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex px-2 py-1">
+                                                            <div class="d-flex flex-column justify-content-center px-2">
+                                                                <h6 class="mb-0 text-sm">@i</h6>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-xs font-weight-bold mb-0">@item.Name</p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-xs font-weight-bold mb-0">@item.Description</p>
+                                                    </td>
+                                                    <td class="align-middle">
+                                                        @*<a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Редактировать">
+                                                            Выбрать
+                                                        </a>*@
+                                                        <a href="Create?id=@item.Id" class="btn btn-sm btn-primary" type="button">
+                                                            Выбрать
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                                else
+                                {
+                                    <div class="alert alert-light mt-1">
+                                        <i class="i-Information mr-2"></i>
+                                        Доступных магазинов нет
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>

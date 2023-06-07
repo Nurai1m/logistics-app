@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(LogisticEFContext))]
-    partial class LogisticEFContextModelSnapshot : ModelSnapshot
+    [Migration("20230607134543_latLang")]
+    partial class latLang
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,6 +31,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
 
@@ -44,31 +47,26 @@ namespace Infrastructure.Migrations
                         .HasColumnType("character varying(500)");
 
                     b.Property<string>("Lang")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
                     b.Property<string>("Lat")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
-
-                    b.Property<Guid?>("ShopId")
-                        .IsRequired()
-                        .HasColumnType("uuid");
 
                     b.Property<string>("TreckingNumber")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<Guid?>("СarrierId")
-                        .IsRequired()
+                    b.Property<Guid>("СarrierId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("ShopId");
 
                     b.HasIndex("СarrierId");
 
@@ -310,13 +308,13 @@ namespace Infrastructure.Migrations
                             AccessFailedCount = 0,
                             Address = "admins address",
                             ConcurrencyStamp = "1708A7F2-6382-4822-ACC6-76CFF580F950",
-                            DateOfBirth = new DateTime(2023, 6, 8, 0, 10, 28, 772, DateTimeKind.Local).AddTicks(4961),
+                            DateOfBirth = new DateTime(2023, 6, 7, 19, 45, 42, 965, DateTimeKind.Local).AddTicks(9215),
                             EmailConfirmed = false,
                             Firstname = "Admin",
                             LockoutEnabled = false,
                             Name = "Admin",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAENGP5poX54xJB8lP+14L+a+aNplnqIU/treNpNMEeOSIbafcd8boOUo7BJcI0M9mjQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAK3k9LhiDy/YE8wtcYEkRbJTHcARedWHDBLMNxudCTEBWln9tztcG0XnuD4ebrN1Q==",
                             Patronymic = "Admin",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7C4733BF-0EC3-450D-888A-6CF4A2F570D7",
@@ -335,7 +333,7 @@ namespace Infrastructure.Migrations
                             LockoutEnabled = false,
                             Name = "Нурайым",
                             NormalizedUserName = "NURAIYM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF/m9eQdfP/heqvJjj9VI95mwqIYvdt8lE476hCUE3tOuCvXuR5K3fDp7B2CaGTBUQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDaE3dtxDBx2eCzrOtDLbkHQu9tYbqO6MPN3MDytp+4swo/PDqQRVnlwfLD+qmO2qQ==",
                             Patronymic = "Нурлановна",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "283C1078-1EBF-48EC-A039-47A3DA91190E",
@@ -354,7 +352,7 @@ namespace Infrastructure.Migrations
                             LockoutEnabled = false,
                             Name = "Кутман",
                             NormalizedUserName = "KUTMAN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAEkbZ74PQCABwRMIfhjTkZ09T+Eh+IBEi906SWIr+xDqdfVp8AEE73UAq/e6oVFUw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMi75VNvQmbBf0v0kt3xt8dySF1WAKYCvxe5hs2k1r91CsAFFwwlKa2hEjWjqHcPew==",
                             Patronymic = "Белекович",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "6E47ECB5-B32B-48E3-812E-C07DD22B59BD",
@@ -373,7 +371,7 @@ namespace Infrastructure.Migrations
                             LockoutEnabled = false,
                             Name = "Нурхан",
                             NormalizedUserName = "NURHAN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKA273HnjjWxJyKssOKow3j0XkwR7bdYdjmMeLuRH9hOMi7yzH3zINVE3F7yTkNC9g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAS/Zi7DFI1zJINAdSL6d6FctATB6wxPvba2PM7mPmaqGJat12HNeVomWXooMceZ0g==",
                             Patronymic = "Нуралнович",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "CCE59880-F1BF-43C2-BD6A-1787C5A83E73",
@@ -392,7 +390,7 @@ namespace Infrastructure.Migrations
                             LockoutEnabled = false,
                             Name = "Николай",
                             NormalizedUserName = "NIKOLAY",
-                            PasswordHash = "AQAAAAEAACcQAAAAECg9Zn2XHriZH+ofWtSROdP5B3GnwpCsLROF1ZELlwMgzpJZFCvXVx454oBo0EntPg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGQfaSHOS+Fep0tySj0N3Gx9S3ZThPYhM30Pd1RBk1bJJdibMDLhuWODkWWc0hGmNQ==",
                             Patronymic = "Васильевич",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "1214702B-6B5E-42B2-A7B8-78B7EC12CB46",
@@ -624,12 +622,6 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Shop", "Shop")
-                        .WithMany("Orders")
-                        .HasForeignKey("ShopId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.User", "Сarrier")
                         .WithMany("CarrierOrders")
                         .HasForeignKey("СarrierId")
@@ -637,8 +629,6 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
-
-                    b.Navigation("Shop");
 
                     b.Navigation("Сarrier");
                 });
@@ -784,8 +774,6 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Shop", b =>
                 {
                     b.Navigation("Locations");
-
-                    b.Navigation("Orders");
 
                     b.Navigation("ShopProducts");
 

@@ -17,19 +17,18 @@ namespace Application.MediatR.Accounts.Queries.GetRoles
 
     public class GetRolesQueryHandler : IRequestHandler<GetRolesQuery, List<ValueDto>>
     {
-        private RoleManager<Role> _roleManager;
+        private RoleManager<IdentityRole<Guid>> _roleManager;
 
-        public GetRolesQueryHandler(RoleManager<Role> roleManager)
+        public GetRolesQueryHandler(RoleManager<IdentityRole<Guid>> roleManager)
         {
             _roleManager = roleManager;
         }
 
         public async Task<List<ValueDto>> Handle(GetRolesQuery request, CancellationToken cancellationToken)
         {
-            var roles = _roleManager.Roles.Select(x => new ValueDto {Id = x.Id, Name = x.NameRu }).ToList();
-            var exceptRole = (ValueDto)roles.FirstOrDefault(x => x.Name == Roles.Admin);
+            var roles = _roleManager.Roles.Select(x => new ValueDto {Id = x.Id, Name = x.Name }).Where(x=>x.Name != Roles.Admin).ToList();
 
-            return roles.Where(x => !roles.Contains(exceptRole)).ToList();
+            return roles;
         }
     }
 }

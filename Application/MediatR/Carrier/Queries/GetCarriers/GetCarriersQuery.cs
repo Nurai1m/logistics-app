@@ -34,6 +34,7 @@ namespace Application.MediatR.Carrier.Queries
             List<CarrierDto> carrierDtos = carriers.Select(x=>
             new CarrierDto
             { 
+                Id = x.Id,
                 Fullname = x.Fullname,
                 Phone = x.PhoneNumber,
             }).ToList();

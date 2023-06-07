@@ -15,10 +15,13 @@ namespace Infrastructure.Persistance.Configuration
         {
             builder.HasOne(x => x.Customer).WithMany(x => x.CustomerOrders).HasForeignKey(x => x.CustomerId);
             builder.HasOne(x => x.Сarrier).WithMany(x => x.CarrierOrders).HasForeignKey(x => x.СarrierId);
+            builder.HasOne(x => x.Shop).WithMany(x => x.Orders).HasForeignKey(x => x.ShopId);
             builder.Property(x => x.DeliveryType).IsRequired();
             builder.Property(x => x.Description).HasMaxLength(500);
             builder.Property(x => x.TreckingNumber).HasMaxLength(100).IsRequired();
             builder.Property(x => x.Address).HasMaxLength(1000);
+            builder.Property(x => x.Lat).HasMaxLength(50);
+            builder.Property(x => x.Lang).HasMaxLength(50);
         }
     }
 }

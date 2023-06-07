@@ -9,51 +9,46 @@ namespace Infrastructure.Persistance.Seeds
     {
         internal static ModelBuilder AddRoleSeedData(this ModelBuilder builder)
         {
-            List<Role> roles = new List<Role>()
+            List<IdentityRole<Guid>> roles = new List<IdentityRole<Guid>>()
             {
-                new Role
+                new IdentityRole<Guid>
                 {
                     Id = new Guid("84028dce-99cd-4351-bb36-1514c6592e54"),
                     Name = Roles.Admin,
                     NormalizedName = Roles.Admin,
-                    NameRu = "Админ",
                     ConcurrencyStamp = "24B4F638-0C83-4526-A143-8E6A3E3F4301"
                 },
-                new Role
+                new IdentityRole<Guid>
                 {
                     Id = new Guid("7b68a169-3cf0-403d-a5b9-8bcf8319ca13"),
                     Name = Roles.Carrier,
                     NormalizedName = Roles.Carrier,
-                    NameRu = "Курьер",
                     ConcurrencyStamp = "24B4F638-0C83-4526-A143-8E6A3E3F4301"
                 },
-                new Role
+                new IdentityRole<Guid>
                 {
                     Id = new Guid("df172293-c03c-462d-be88-ba9ad41c8cf7"),
                     Name = Roles.Client,
                     NormalizedName = Roles.Client,
-                    NameRu = "Клиент",
                     ConcurrencyStamp = "166C78CC-189E-451C-9944-DE606C116709"
                 },
-                new Role
+                new IdentityRole<Guid>
                 {
                     Id = new Guid("7056419c-e665-4a17-b88c-e5a41237e0fb"),
                     Name = Roles.Employee,
                     NormalizedName = Roles.Employee,
-                    NameRu = "Работник",
                     ConcurrencyStamp = "F96B067C-C796-477D-A5EB-3633258DF11E"
                 },
-                new Role
+                new IdentityRole<Guid>
                 {
                     Id = new Guid("5ba00775-fb4a-49a9-a1c4-9c41fc2136dc"),
                     Name = Roles.ShopOwner,
                     NormalizedName = Roles.ShopOwner,
-                    NameRu = "Владелец магазина",
                     ConcurrencyStamp = "7B7C2902-1849-4383-A5E1-375923A47DC3"
                 },
             };
 
-            builder.Entity<Role>().HasData(roles);
+            builder.Entity<IdentityRole<Guid>>().HasData(roles);
             return builder;
         }
 

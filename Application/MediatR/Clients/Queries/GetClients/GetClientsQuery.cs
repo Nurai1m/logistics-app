@@ -23,10 +23,10 @@ namespace Application.MediatR.Clients.Queries
         private ILogisticEFContext _context;
         private IUserService _userService;
         private UserManager<User> _userManager;
-        private RoleManager<Role> _roleManager;
+        private RoleManager<IdentityRole<Guid>> _roleManager;
         IHttpContextAccessor _httpContextAccessor;
 
-        public GetShopsQueryHandler(ILogisticEFContext context, IUserService userService, UserManager<User> userManager, RoleManager<Role> roleManager, IHttpContextAccessor httpContextAccessor)
+        public GetShopsQueryHandler(ILogisticEFContext context, IUserService userService, UserManager<User> userManager, RoleManager<IdentityRole<Guid>> roleManager, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _userService = userService;
@@ -37,23 +37,18 @@ namespace Application.MediatR.Clients.Queries
 
         public async Task<List<ClientDto>> Handle(GetClientsQuery request, CancellationToken cancellationToken)
         {
-            //await _userManager.UpdateSecurityStampAsync(await _userManager.FindByIdAsync(_userService.Id.ToString()));
-            var clients = _roleManager.Roles.Include(x => x.UserRoles).ThenInclude(x => x.User).Where(x => x.Name == Roles.Client);
-            ////var clients = await _roleManager.Get
-            //if (clients.Any())
-            //{
-            //    List<ClientDto> shopDtos = clients.Select(x=>x.UserRoles)
-                    
-            //        .Select(x => x
-            //    new ClientDto
-            //    {
-            //        Fullname = x.Select(x=>x.User.Fullname)
-            //        Address = x.Address,
-            //        Phone = x.PhoneNumber
-            //    }).ToList();
-            //}
-            //return shopDtos;
-            return null;
+            var users = await _userManager.GetUsersInRoleAsync("client");
+
+            List<ClientDto> clients = users.Select(x =>
+            new ClientDto
+            {
+                Id = x.Id,
+                Fullname = x.Fullname,
+                Phone = x.PhoneNumber,
+                Address = x.Address
+            }).ToList();
+
+            return clients;
 
         }
     }

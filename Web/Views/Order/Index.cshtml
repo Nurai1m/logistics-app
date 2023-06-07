@@ -1,0 +1,164 @@
+﻿@model GetOrdersQuery
+
+@{
+    var orders = (List<OrderDto>)@ViewData["Orders"];
+    @ViewData["Title"] = "Заказы";
+}
+
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+        <div class="container-fluid py-1 px-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+                </ol>
+                <h6 class="font-weight-bolder mb-0">@ViewData["Title"]</h6>
+            </nav>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+        <div class="row my-2">
+            <div class="col-6">
+                <a class="btn btn-outline-primary btn-sm mb-0 me-3" href="@Url.Action("ShopsIndex")">Создать новый</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3">@ViewData["Title"]</h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="row d-flex justify-content-left">
+                            <div class="col-3 px-4 py-2">
+                                <a class="btn btn-success btn-sm mb-0 me-3" id="confirmBtn" href="@Url.Action("ShopsIndex")">Отправить заказы</a>
+                            </div>
+                        </div>
+                        <div class="table-responsive p-0">
+                            <table id="checkboxes" class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th width="5%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            <div class="d-flex justify-content-center">
+                                                #
+                                            </div>
+                                        </th>
+                                        <th width="15%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Вид поставки</th>
+                                        <th width="15%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Заказчик</th>
+                                        <th width="10%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Курьер</th>
+                                        <th width="10%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Трековый номер</th>
+                                        <th width="20%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Адрес</th>
+                                        <th width="15%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Описание</th>
+                                        <th width="15%" class="text-secondary opacity-7"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in orders)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex justify-content-center">
+                                                    <input type="checkbox" class="tdCheckBox" data-id="@item.Id" />
+                                                </div>
+                                            </td>
+                                            <td class="">
+                                                <div class="d-flex justify-content-left px-3">
+                                                    <p class="text-xs font-weight-bold mb-0">@item.DeliveryType.GetDisplayValue()</p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0">@item.CustomerName</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0">@(item.CarrierName ?? "-")</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0">@(string.IsNullOrWhiteSpace(item.TreckingNumber) ? "-" : item.TreckingNumber)</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0">@item.Address</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0">@item.Description</p>
+                                            </td>
+                                            <td class="align-middle">
+                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Редактировать">
+                                                    Отправить
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<script src="/lib/jquery/dist/jquery.js"></script>
+<script src="/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.tdCheckBox').on('click', function(e) {
+            let isChecked = $(this).is(":checked");
+
+            setupSelectedItemsCount(isChecked);
+            confirmButtonDisabled();
+            headCheckboxSelected();
+
+            e.stopPropagation();
+        });
+    });
+
+    $('#headCheckbox').on('click', function() {
+        let val = $(this).is(":checked");
+
+        if (val) {
+            $('#checkboxes').checkboxes('check');
+        } else {
+            $('#checkboxes').checkboxes('uncheck');
+        }
+
+    });
+
+    $('#confirmBtn').on('click', function() {
+        let selectedIds = [];
+
+        $('#checkboxes > tbody > tr').each(function() {
+            let checkBox = $(this).find("td:eq(1)").find("input");
+            let isChecked = checkBox.is(":checked");
+
+            if (isChecked) {
+                selectedIds.push(checkBox.data('id'));
+            }
+        });
+
+        $.ajax({
+            type: 'Post',
+            url: '/order/send',
+            dataType: 'json',
+            data: { "ids": selectedIds },
+            statusCode: {
+                200: function(response) {
+                    $('#confirmModal').modal('show');
+                    l.stop();
+                    $('#confirmBtn').removeClass('disabled');
+                },
+                400: function(response) {
+                    $('#errorModalBody').text(response.responseText);
+                    $('#errorModal').modal('show');
+                    l.stop();
+                    $('#confirmBtn').removeClass('disabled');
+                }
+            }
+        });
+    });
+</script>
