@@ -3,6 +3,7 @@
 @{
     var orders = (List<OrderDto>)@ViewData["Orders"];
     @ViewData["Title"] = "Заказы";
+
 }
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -62,6 +63,7 @@
                                         <tr>
                                             <td>
                                                 <div class="d-flex justify-content-center">
+                                                    <input type="hidden" value="@item.Id" class="orderId"/>
                                                     <input type="checkbox" class="tdCheckBox" data-id="@item.Id" />
                                                 </div>
                                             </td>
@@ -86,7 +88,7 @@
                                                 <p class="text-xs font-weight-bold mb-0">@item.Description</p>
                                             </td>
                                             <td class="align-middle">
-                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Редактировать">
+                                                <a id="confirmBtn" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Редактировать">
                                                     Отправить
                                                 </a>
                                             </td>
@@ -110,53 +112,59 @@
         $('.tdCheckBox').on('click', function(e) {
             let isChecked = $(this).is(":checked");
 
-            setupSelectedItemsCount(isChecked);
-            confirmButtonDisabled();
-            headCheckboxSelected();
-
             e.stopPropagation();
         });
     });
 
-    $('#headCheckbox').on('click', function() {
-        let val = $(this).is(":checked");
+    //$('#headCheckbox').on('click', function() {
+    //    let val = $(this).is(":checked");
 
-        if (val) {
-            $('#checkboxes').checkboxes('check');
-        } else {
-            $('#checkboxes').checkboxes('uncheck');
-        }
+    //    if (val) {
+    //        $('#checkboxes').checkboxes('check');
+    //    } else {
+    //        $('#checkboxes').checkboxes('uncheck');
+    //    }
 
-    });
+    //});
 
     $('#confirmBtn').on('click', function() {
         let selectedIds = [];
 
         $('#checkboxes > tbody > tr').each(function() {
-            let checkBox = $(this).find("td:eq(1)").find("input");
+            debugger;
+            let orderId = $(this).find("td:eq(0)").find(".orderId").val();
+            let checkBox = $(this).find("td:eq(0)").find(".tdCheckBox");
             let isChecked = checkBox.is(":checked");
 
             if (isChecked) {
-                selectedIds.push(checkBox.data('id'));
+                selectedIds.push(orderId);
             }
         });
 
+        debugger;
+        
+        //$( "form" ).on( "submit", function() {
+        //  return this.some_flag_variable;
+        //} );
+
         $.ajax({
             type: 'Post',
-            url: '/order/send',
+            url: '/order/createDelivery',
             dataType: 'json',
-            data: { "ids": selectedIds },
+            data: { "orderIds": selectedIds },
             statusCode: {
                 200: function(response) {
-                    $('#confirmModal').modal('show');
-                    l.stop();
-                    $('#confirmBtn').removeClass('disabled');
+                    //$('#confirmModal').modal('show');
+                    //l.stop();
+                    //$('#confirmBtn').removeClass('disabled');
+                    console.log("succ");
                 },
                 400: function(response) {
-                    $('#errorModalBody').text(response.responseText);
-                    $('#errorModal').modal('show');
-                    l.stop();
-                    $('#confirmBtn').removeClass('disabled');
+                    //$('#errorModalBody').text(response.responseText);
+                    //$('#errorModal').modal('show');
+                    //l.stop();
+                    //$('#confirmBtn').removeClass('disabled');
+                    console.log("fail");
                 }
             }
         });

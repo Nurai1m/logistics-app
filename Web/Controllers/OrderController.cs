@@ -1,6 +1,7 @@
 ﻿using Application.MediatR.Carrier.Queries;
 using Application.MediatR.Clients.Queries;
 using Application.MediatR.Orders.Commands;
+using Application.MediatR.Orders.Commands.Send;
 using Application.MediatR.Orders.Queries;
 using Application.MediatR.Shop.Queries;
 using Application.MediatR.Shop.Queries.GetShops;
@@ -44,6 +45,20 @@ namespace Web.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateOrderCommand command)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await Mediator.Send(command);
+                if (result.Succeed)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+
+            return View(command);
+        }
+
+        public async Task<IActionResult> CreateDelivery(CreateDeliveryCommand command)
         {
             if (ModelState.IsValid)
             {
