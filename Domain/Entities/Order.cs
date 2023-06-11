@@ -11,6 +11,7 @@ namespace Domain.Entities
     public class Order : BaseEntity
     {
         public Guid CustomerId { get; set; }
+        public Guid ShopLocationId { get; set; }
         public User Customer { get; set; }
         public DeliveryType DeliveryType { get; set; }
         public string Description { get; set; }

@@ -1,6 +1,8 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Algorithms.AStarAlgorithmWithListVisit;
+using Application.Common.Interfaces;
 using Application.Common.Models;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +32,37 @@ namespace Application.MediatR.Orders.Commands.Send
             try
             {
                 var orders = _context.Orders.Where(x => request.OrderIds.Contains(x.Id)).ToList();
+                var startLocation = _context.ShopLocations.FirstOrDefault(x => x.Id == orders.FirstOrDefault().ShopLocationId);
 
+                double.TryParse(startLocation.Lat, out double lat);
+                double.TryParse(startLocation.Lang, out double lang);
+
+                Location start = new Location
+                (
+                    startLocation.Name,
+                    lat,
+                    lang
+                );
+
+                List<Location> locations = new List<Location>();
+                locations.Add(start);
+                locations.AddRange(
+                    orders.Select(x => new Location
+                    (
+                        x.TreckingNumber,
+                        Convert.ToDouble(x.Lat),
+                        Convert.ToDouble(x.Lang)
+                    )).ToList());
+
+                
+
+                AStarAlgorithm algorithm = new AStarAlgorithm();
+                var result = algorithm.FindShortestPath(locations);
+
+                foreach (var item in result)
+                { 
+                    Console.WriteLine(item);
+                }
 
                 return Result.Success();
             }
@@ -41,8 +73,9 @@ namespace Application.MediatR.Orders.Commands.Send
         }
 
         private void GeneratePath()
-        { 
-            
+        {
+            AStarAlgorithm algorithm = new AStarAlgorithm();
+
         }
     }
 }

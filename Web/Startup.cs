@@ -4,6 +4,7 @@ using Infrastructure;
 using Infrastructure.Persistance;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using System.Globalization;
 
 namespace Web
 {
@@ -65,6 +66,11 @@ namespace Web
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+
+            var cultureInfo = new CultureInfo("en-US");
+
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
             app.UseEndpoints(endpoints =>
             {

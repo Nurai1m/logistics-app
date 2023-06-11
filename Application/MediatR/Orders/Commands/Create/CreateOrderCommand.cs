@@ -10,6 +10,7 @@ namespace Application.MediatR.Orders.Commands
     public class CreateOrderCommand : IRequest<Result>
     {
         public Guid CustomerId { get; set; }
+        public Guid ShopLocationId { get; set; }
         public DeliveryType DeliveryType { get; set; }
         public string Description { get; set; }
         public Guid? CarrierId { get; set; }
@@ -46,6 +47,7 @@ namespace Application.MediatR.Orders.Commands
                     Lat = request.Lat,
                     TreckingNumber = "",
                     ShopId = request.ShopId,
+                    ShopLocationId = request.ShopLocationId,
                 };
 
                 var products = new List<OrderProduct>();
