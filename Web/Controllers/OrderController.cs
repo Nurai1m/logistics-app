@@ -1,7 +1,6 @@
 ﻿using Application.MediatR.Carrier.Queries;
 using Application.MediatR.Clients.Queries;
 using Application.MediatR.Orders.Commands;
-using Application.MediatR.Orders.Commands.Send;
 using Application.MediatR.Orders.Queries;
 using Application.MediatR.Shop.Queries;
 using Application.MediatR.Shop.Queries.GetShops;
@@ -63,13 +62,11 @@ namespace Web.Controllers
             if (ModelState.IsValid)
             {
                 var result = await Mediator.Send(command);
-                if (result.Succeed)
-                {
-                    return RedirectToAction("Index");
-                }
+
+                return Json(result);
             }
 
-            return View(command);
+            return View("CreateDelivery");
         }
     }
 }

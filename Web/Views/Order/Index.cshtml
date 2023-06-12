@@ -36,7 +36,10 @@
                     <div class="card-body px-0 pb-2">
                         <div class="row d-flex justify-content-left">
                             <div class="col-3 px-4 py-2">
-                                <a class="btn btn-success btn-sm mb-0 me-3" id="confirmBtn" href="@Url.Action("ShopsIndex")">Отправить заказы</a>
+                                <form>
+                                    <input name="orderIds" id="orderIds" value=""/>
+                                    <button class="btn btn-success btn-sm mb-0 me-3" type="submit" id="confirmBtn">Отправить заказы</button>
+                                </form>
                             </div>
                         </div>
                         <div class="table-responsive p-0">
@@ -143,12 +146,12 @@
 
         debugger;
         
-        //$( "form" ).on( "submit", function() {
-        //  return this.some_flag_variable;
-        //} );
+        $("form").on( "submit", function() {
+            $('#orderIds').val(selectedIds);
+        });
 
         $.ajax({
-            type: 'Post',
+            type: 'Get',
             url: '/order/createDelivery',
             dataType: 'json',
             data: { "orderIds": selectedIds },
