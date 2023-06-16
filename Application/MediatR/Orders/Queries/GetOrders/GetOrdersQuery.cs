@@ -44,7 +44,8 @@ namespace Application.MediatR.Orders.Queries
                     CarrierName = x.Сarrier != null ? x.Сarrier.Fullname : null,
                     TreckingNumber = x.TreckingNumber,
                     Address = x.Address,
-                    Description = x.Description
+                    Description = x.Description,
+                    OrderStatus = x.OrderStatus,
                 })
                     .ToList();
 

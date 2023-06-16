@@ -1,6 +1,7 @@
 ﻿using Application.MediatR.Carrier.Queries;
 using Application.MediatR.Clients.Queries;
 using Application.MediatR.Orders.Commands;
+using Application.MediatR.Orders.Commands.Create;
 using Application.MediatR.Orders.Queries;
 using Application.MediatR.Shop.Queries;
 using Application.MediatR.Shop.Queries.GetShops;
@@ -67,6 +68,18 @@ namespace Web.Controllers
             }
 
             return View("CreateDelivery");
+        }
+
+        public async Task<IActionResult> PickupSend(PickupSendCommand command)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await Mediator.Send(command);
+
+                return RedirectToAction("Index");
+            }
+
+            return View();
         }
     }
 }

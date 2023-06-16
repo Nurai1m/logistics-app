@@ -1,5 +1,6 @@
 ﻿using Application.MediatR.ProductDictionary.Commands;
 using Application.MediatR.ProductDictionary.Queries;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +9,12 @@ namespace Web.Controllers
     public class ProductController : Controller
     {
         private IMediator Mediator;
+        private INotyfService _notyfService;
 
-        public ProductController(IMediator mediator)
+        public ProductController(IMediator mediator, INotyfService notyfService)
         {
             Mediator = mediator;
+            _notyfService = notyfService;
         }
 
         public async Task<IActionResult> Index()
@@ -34,8 +37,10 @@ namespace Web.Controllers
                 var result = await Mediator.Send(command);
                 if (result.Succeed)
                 {
+                    foreach (var message in result.Messages) _notyfService.Success(message);
                     return RedirectToAction("Index");
                 }
+                foreach (var message in result.Messages) _notyfService.Error(message);
             }
 
             return View(command);
