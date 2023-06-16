@@ -45,7 +45,8 @@ namespace Application.MediatR.Clients.Queries
                 Id = x.Id,
                 Fullname = x.Fullname,
                 Phone = x.PhoneNumber,
-                Address = x.Address
+                Address = x.Address,
+                Amount = _context.Orders.Where(y=>y.CustomerId == x.Id).Count(),
             }).ToList();
 
             return clients;

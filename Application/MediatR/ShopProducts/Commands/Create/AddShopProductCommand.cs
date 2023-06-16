@@ -25,6 +25,20 @@ namespace Application.MediatR.ShopProducts.Commands
         {
             try
             {
+                foreach (var item in request.ShopProducts)
+                {
+                    if (item.Amount == null  || item.ProductId == null || item.ShopId == null)
+                    {
+                        return Result.Failure("Необходимо заполнить все поля");
+                    }
+                    if(item.Amount <= 0)
+                    {
+                        return Result.Failure("Неверный формат количества");
+                    }
+                    break;
+                }
+               
+
                 var shopProducts = request.ShopProducts.Select(x => new ShopProduct
                 {
                     ProductId = x.ProductId,

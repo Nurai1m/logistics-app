@@ -2,6 +2,7 @@
 using Application.MediatR.Shop.Queries;
 using Application.MediatR.ShopProducts.Commands;
 using Application.MediatR.ShopProducts.Queries;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +11,12 @@ namespace Web.Controllers
     public class ShopProductController : Controller
     {
         private IMediator Mediator;
+        private INotyfService _notyfService;
 
-        public ShopProductController(IMediator mediator)
+        public ShopProductController(IMediator mediator, INotyfService notyfService)
         {
             Mediator = mediator;
+            _notyfService = notyfService;
         }
 
         public async Task<IActionResult> Index()
@@ -34,15 +37,17 @@ namespace Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AddShopProductCommand command)
         {
-            if (ModelState.IsValid)
+            var result = await Mediator.Send(command);
+            if (result.Succeed)
             {
-                var result = await Mediator.Send(command);
-                if (result.Succeed)
-                {
-                    return RedirectToAction("Index");
-                }
+                foreach (var message in result.Messages) _notyfService.Success(message);
+                return RedirectToAction("Index");
             }
+            ViewData["Shops"] = await Mediator.Send(new GetShopsQuery());
+            ViewData["Products"] = await Mediator.Send(new GetProductsQuery());
 
+            foreach (var message in result.Messages) _notyfService.Error(message);
+           
             return View(command);
         }
     }

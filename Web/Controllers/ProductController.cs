@@ -32,8 +32,8 @@ namespace Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateProductDictionaryCommand command)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 var result = await Mediator.Send(command);
                 if (result.Succeed)
                 {
@@ -41,7 +41,7 @@ namespace Web.Controllers
                     return RedirectToAction("Index");
                 }
                 foreach (var message in result.Messages) _notyfService.Error(message);
-            }
+            //}
 
             return View(command);
         }

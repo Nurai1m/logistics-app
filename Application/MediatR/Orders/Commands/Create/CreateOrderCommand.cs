@@ -47,7 +47,7 @@ namespace Application.MediatR.Orders.Commands
                     Address = request.Address,
                     Lang = request.Lang,
                     Lat = request.Lat,
-                    TreckingNumber = "",
+                    TreckingNumber = TrackNum(10),
                     ShopId = request.ShopId,
                     ShopLocationId = shopLocation.Id,
                     OrderStatus = OrderStatus.Await,
@@ -75,6 +75,17 @@ namespace Application.MediatR.Orders.Commands
                 return Result.Failure("");
             }
             
+        }
+
+        private static string TrackNum(int length)
+        {
+            Random random = new Random();
+
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var randStr =  new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+
+            return $"Track_{DateTime.Now.ToString("yyyy-MM-dd")}_{randStr}";
         }
     }
 }

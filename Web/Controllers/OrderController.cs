@@ -6,6 +6,7 @@ using Application.MediatR.Orders.Queries;
 using Application.MediatR.Shop.Queries;
 using Application.MediatR.Shop.Queries.GetShops;
 using Application.MediatR.ShopProducts.Queries.GetShopProducts;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,10 +15,12 @@ namespace Web.Controllers
     public class OrderController : Controller
     {
         private IMediator Mediator;
+        private INotyfService _notyfService;
 
-        public OrderController(IMediator mediator)
+        public OrderController(IMediator mediator, INotyfService notyfService)
         {
             Mediator = mediator;
+            _notyfService = notyfService;
         }
 
         public async Task<IActionResult> Index()
@@ -51,8 +54,10 @@ namespace Web.Controllers
                 var result = await Mediator.Send(command);
                 if (result.Succeed)
                 {
+                    foreach (var message in result.Messages) _notyfService.Success(message);
                     return RedirectToAction("Index");
                 }
+                foreach (var message in result.Messages) _notyfService.Error(message);
             }
 
             return View(command);
@@ -75,8 +80,12 @@ namespace Web.Controllers
             if (ModelState.IsValid)
             {
                 var result = await Mediator.Send(command);
-
-                return RedirectToAction("Index");
+                if (result.Succeed)
+                {
+                    foreach (var message in result.Messages) _notyfService.Success(message);
+                    return RedirectToAction("Index");
+                }
+                foreach (var message in result.Messages) _notyfService.Error(message);
             }
 
             return View();

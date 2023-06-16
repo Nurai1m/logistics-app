@@ -29,6 +29,16 @@ namespace Application.MediatR.Shop.Commands
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(request.Name) || string.IsNullOrWhiteSpace(request.Description) || string.IsNullOrWhiteSpace(request.Url))
+                {
+                    return Result.Failure("Необходимо заполнить все поля");
+                }
+
+                if (string.IsNullOrWhiteSpace(request.Locations.First().Lang) || string.IsNullOrWhiteSpace(request.Locations.First().Lat) || string.IsNullOrWhiteSpace(request.Locations.First().Address))
+                {
+                    return Result.Failure("Необходимо указать локацию магазина");
+                }
+
                 var shop = new Domain.Entities.Shop { Name = request.Name, Description = request.Description, Url = request.Url };
 
                 shop.UserShops = new List<UserShop>();

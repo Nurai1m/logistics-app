@@ -3,6 +3,7 @@
 @{
     var products = (List<ProductDto>)@ViewData["Products"];
     @ViewData["Title"] = "Справочник товаров";
+    int i = 1;
 }
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -11,7 +12,6 @@
         <div class="container-fluid py-1 px-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
                 </ol>
                 <h6 class="font-weight-bolder mb-0">@ViewData["Title"]</h6>
             </nav>
@@ -37,9 +37,10 @@
                             <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
+                                        <th width="5%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                                         <th width="20%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Наименование</th>
                                         <th width="20%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Описание</th>
-                                        <th width="30%" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ссылка</th>
+                                        <th width="25%" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Ссылка</th>
                                         <th width="10%" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Активность</th>
                                         <th width="20%" class="text-secondary opacity-7"></th>
                                     </tr>
@@ -48,6 +49,13 @@
                                     @foreach (var item in products)
                                     {
                                         <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center px-2">
+                                                        <h6 class="mb-0 text-sm">@(i++)</h6>
+                                                    </div>
+                                                </div>
+                                            </td>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center px-2">

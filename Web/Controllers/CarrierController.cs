@@ -1,22 +1,22 @@
-﻿using Application.MediatR.Clients.Queries;
+﻿using Application.MediatR.Carrier.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
-    public class ClientController : Controller
+    public class CarrierController : Controller
     {
         private IMediator Mediator;
 
-        public ClientController(IMediator mediator)
+        public CarrierController(IMediator mediator)
         {
             Mediator = mediator;
         }
 
-        public async Task<IActionResult> Index(GetClientsQuery query)
+        public async Task<IActionResult> Index(GetCarriersQuery query)
         {
             var result = await Mediator.Send(query);
-            ViewData["Clients"] = result;
+            ViewData["Carriers"] = result;
             return View(query);
         }
     }

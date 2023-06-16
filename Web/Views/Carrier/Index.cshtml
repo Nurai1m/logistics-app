@@ -1,8 +1,8 @@
-﻿@model GetClientsQuery
+﻿@model GetCarriersQuery
 
 @{
-    var clients = (List<ClientDto>)@ViewData["Clients"];
-    @ViewData["Title"] = "Клиенты";
+    var clients = (List<CarrierDto>)@ViewData["Carriers"];
+    @ViewData["Title"] = "Курьеры";
     int i = 1;
 }
 
@@ -32,7 +32,6 @@
                                     <tr>
                                         <th width="5%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                                         <th width="20%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ФИО</th>
-                                        <th width="25%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Адрес</th>
                                         <th width="20%" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Телефон</th>
                                         <th width="10%" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Количество заказов</th>
                                     </tr>
@@ -57,14 +56,11 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">@item.Address</p>
-                                                </td>
                                                 <td class="text-center">
                                                     <p class="text-xs font-weight-bold mb-0">@item.Phone</p>
                                                 </td>
                                                 <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-success">@item.Amount</span>
+                                                    <span class="badge badge-sm bg-gradient-success">@item.OrderAmount</span>
                                                 </td>
                                             </tr>
                                         }

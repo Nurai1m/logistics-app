@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace Infrastructure.Services
         public string Patronymic { get; }
         public string Address { get; }
         public string Fullname => $"{Firstname} {Name} {Patronymic}";
+        public string RoleName { get; }
 
         public UserService(IHttpContextAccessor httpContextAccessor)
         {
@@ -27,6 +29,7 @@ namespace Infrastructure.Services
             Firstname = principal.FindFirstValue("Firstname");
             Patronymic = principal.FindFirstValue("Patronymic");
             Address = principal.FindFirstValue("Address");
+            RoleName = principal.FindFirstValue(ClaimTypes.Role);
         }
     }
 }

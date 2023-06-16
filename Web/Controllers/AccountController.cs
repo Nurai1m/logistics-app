@@ -37,7 +37,7 @@ namespace Web.Controllers
                 var result = await Mediator.Send(command);
                 if (result.Succeed)
                 {
-                     return RedirectToAction("Index", "Home");
+                     return RedirectToAction("Index", "Statistic");
                 }
                 //foreach (var message in result.Messages) Notyf.Error(message);
             }

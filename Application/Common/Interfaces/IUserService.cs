@@ -8,5 +8,6 @@
         string Patronymic { get; }
         string Address { get; }
         string Fullname { get; }
+        string RoleName { get; }
     }
 }

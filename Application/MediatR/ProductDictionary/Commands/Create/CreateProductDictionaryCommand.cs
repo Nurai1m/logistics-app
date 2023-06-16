@@ -12,11 +12,8 @@ namespace Application.MediatR.ProductDictionary.Commands
 {
     public class CreateProductDictionaryCommand : IRequest<Result>
     {
-        [Required]
         public string Name { get; set; }
-        [Required]
         public string Description { get; set; }
-        [Required]
         public string VendorCode { get; set; }
     }
 
@@ -32,7 +29,12 @@ namespace Application.MediatR.ProductDictionary.Commands
         public async Task<Result> Handle(CreateProductDictionaryCommand request, CancellationToken cancellationToken)
         {
             try
-            { 
+            {
+                if (string.IsNullOrWhiteSpace(request.Name) || string.IsNullOrWhiteSpace(request.Description) || string.IsNullOrWhiteSpace(request.VendorCode))
+                {
+                    return Result.Failure("Необходимо заполнить все поля");
+                }    
+
                 var product = new Domain.Entities.ProductDictionary
                 { 
                     Name = request.Name, 

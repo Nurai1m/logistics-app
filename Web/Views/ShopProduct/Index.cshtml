@@ -3,6 +3,7 @@
 @{
     var shopProducts = (List<ShopProductViewDto>)@ViewData["ShopProducts"];
     @ViewData["Title"] = "Товары в магазине";
+    int i = 1;
 }
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -10,9 +11,6 @@
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
         <div class="container-fluid py-1 px-3">
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                    <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-                </ol>
                 <h6 class="font-weight-bolder mb-0">@ViewData["Title"]</h6>
             </nav>
         </div>
@@ -21,7 +19,7 @@
     <div class="container-fluid py-4">
         <div class="row my-2">
             <div class="col-6">
-                 <a class="btn btn-outline-primary btn-sm mb-0 me-3" href="@Url.Action("Create")">Создать новый</i></a>
+                <a class="btn btn-outline-primary btn-sm mb-0 me-3" href="@Url.Action("Create")">Создать новый</a>
             </div>
         </div>
         <div class="row">
@@ -37,32 +35,40 @@
                             <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
+                                        <th width="5%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">#</th>
                                         <th width="20%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Магазин</th>
-                                        <th width="30%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Товар</th>
+                                        <th width="25%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Товар</th>
                                         <th width="20%" class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Количество</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if(shopProducts != null)
+                                    @if (shopProducts != null)
                                     {
-                                    @foreach (var item in shopProducts)
-                                    {
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div class="d-flex flex-column justify-content-center px-2">
-                                                        <h6 class="mb-0 text-sm">@item.ShopName</h6>
+                                        @foreach (var item in shopProducts)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex px-2 py-1">
+                                                        <div class="d-flex flex-column justify-content-center px-2">
+                                                            <h6 class="mb-0 text-sm">@(i++)</h6>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <p class="text-xs font-weight-bold mb-0">@item.ProductName</p>
-                                            </td>
-                                            <td class="text-center">
-                                                <p class="text-xs font-weight-bold mb-0">@item.Amount</p>
-                                            </td>
-                                        </tr>
-                                    }
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex px-2 py-1">
+                                                        <div class="d-flex flex-column justify-content-center px-2">
+                                                            <h6 class="mb-0 text-sm">@item.ShopName</h6>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p class="text-xs font-weight-bold mb-0">@item.ProductName</p>
+                                                </td>
+                                                <td class="text-center">
+                                                    <p class="text-xs font-weight-bold mb-0">@item.Amount</p>
+                                                </td>
+                                            </tr>
+                                        }
                                     }
                                 </tbody>
                             </table>
