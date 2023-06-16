@@ -200,13 +200,10 @@
             var markerLatitude = currentPosition[0];
             var markerLongitude = currentPosition[1];
 
-            // Log the coordinates
-            console.log("Marker Latitude:", markerLatitude);
-            console.log("Marker Longitude:", markerLongitude);
-
-            $('#lang').val(markerLongitude);
-            $('#lat').val(markerLatitude);
-
+            $('#lang').val(markerLongitude).change();
+            $('#lat').val(markerLatitude).change();
+            $('#lat').trigger('change');
+            //var x = document.getElementById("myLI").parentElement
             getAddress(currentPosition);
         });
 
@@ -215,8 +212,6 @@
             marker.properties.set('iconCaption', 'поиск...');
             ymaps.geocode(coords).then(function(res) {
                 var firstGeoObject = res.geoObjects.get(0);
-                console.log(firstGeoObject.getAdministrativeAreas());
-                debugger;
                 marker.properties
                     .set({
                         // Формируем строку с данными об объекте.
@@ -229,7 +224,9 @@
                         // В качестве контента балуна задаем строку с адресом объекта.
                         balloonContent: firstGeoObject.getAdministrativeAreas(),
                     });
-                $('#address').val(firstGeoObject.getAddressLine());
+                $('#address').val(firstGeoObject.getAddressLine()).change();
+                address = document.getElementById('address');
+                address.parentElement.classList.add('is-filled');
             });
         }
     });

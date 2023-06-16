@@ -33,7 +33,7 @@ namespace Application.MediatR.Orders.Commands
             try
             {
                 var orders = _context.Orders.Where(x => request.OrderIds.Contains(x.Id)).ToList();
-                var startLocation = _context.ShopLocations.FirstOrDefault(x => x.Id == orders.FirstOrDefault().ShopLocationId);
+                var startLocation = _context.ShopLocations.FirstOrDefault(x => x.Id == Guid.Parse("813661c6-33c2-4ca9-8734-ef86477ccca9"));
 
                 double.TryParse(startLocation.Lat, out double lat);
                 double.TryParse(startLocation.Lang, out double lang);
