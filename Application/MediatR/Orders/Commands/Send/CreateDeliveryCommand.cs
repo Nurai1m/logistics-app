@@ -14,7 +14,7 @@ namespace Application.MediatR.Orders.Commands
 {
     public class CreateDeliveryCommand : IRequest<List<LocationDto>>
     {
-        public List<Guid> OrderIds { get; set; }
+        public List<string> OrderIds { get; set; }
     }
 
     public class CreateDeliveryCommandHandler : IRequestHandler<CreateDeliveryCommand, List<LocationDto>>
@@ -32,8 +32,9 @@ namespace Application.MediatR.Orders.Commands
         {
             try
             {
-                var orders = _context.Orders.Where(x => request.OrderIds.Contains(x.Id)).ToList();
-                var startLocation = _context.ShopLocations.FirstOrDefault(x => x.Id == Guid.Parse("813661c6-33c2-4ca9-8734-ef86477ccca9"));
+                var ids = request.OrderIds.Select(x=>Guid.Parse(x)).ToList();
+                var orders = _context.Orders.Where(x => ids.Contains(x.Id)).ToList();
+                var startLocation = _context.ShopLocations.FirstOrDefault(x => x.Id == orders.FirstOrDefault().ShopLocationId);
 
                 double.TryParse(startLocation.Lat, out double lat);
                 double.TryParse(startLocation.Lang, out double lang);

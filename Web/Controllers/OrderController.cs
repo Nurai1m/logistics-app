@@ -58,16 +58,17 @@ namespace Web.Controllers
             return View(command);
         }
 
-        public async Task<IActionResult> CreateDelivery(CreateDeliveryCommand command)
+        public async Task<IActionResult> CreateDelivery(string orderIds)
         {
             if (ModelState.IsValid)
             {
-                var result = await Mediator.Send(command);
-
-                return Json(result);
+                var t = orderIds.Split(',').ToList();
+                var result = await Mediator.Send(new CreateDeliveryCommand {OrderIds = orderIds.Split(',').ToList() });
+                ViewData["Locations"] = result;
+                return View("CreateDelivery");
             }
 
-            return View("CreateDelivery");
+            return View();
         }
 
         public async Task<IActionResult> PickupSend(PickupSendCommand command)

@@ -578,7 +578,6 @@ window.onload = function () {
         }, false);
 
         inputs[i].addEventListener('change', function (e) {
-            debugger;
             if (this.value != "") {
                 this.parentElement.classList.add('is-filled');
             }

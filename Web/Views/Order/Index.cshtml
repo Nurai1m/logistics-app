@@ -36,9 +36,9 @@
                     <div class="card-body px-0 pb-2">
                         <div class="row d-flex justify-content-left">
                             <div class="col-3 px-4 py-2">
-                                <form>
-                                    <input name="orderIds" id="orderIds" value="" />
-                                    <button class="btn btn-success btn-sm mb-0 me-3" type="submit" id="confirmBtn">Отправить заказы</button>
+                                <form asp-action="CreateDelivery">
+                                    <input name="orderIds" id="orderIds" value="" hidden/>
+                                    <button class="btn btn-success btn-sm mb-0 me-3" id="confirmBtn" type="submit">Отправить заказы</button>
                                 </form>
                             </div>
                         </div>
@@ -58,7 +58,6 @@
                                         <th width="10%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Трековый номер</th>
                                         <th width="15%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Адрес</th>
                                         <th width="15%" class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Описание</th>
-                                        <th width="15%" class="text-secondary opacity-7"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -96,14 +95,6 @@
                                             <td>
                                                 <p class="text-xs font-weight-bold mb-0">@item.Description</p>
                                             </td>
-                                            <td class="align-middle">
-
-                                                <a @(item.DeliveryType == DeliveryType.Delivery ? "hidden" : "")
-                                               id="confirmBtn" class="btn btn-warning btn-sm mb-0 me-3" data-toggle="tooltip"
-                                               data-original-title="Редактировать" href="@Url.Action("PickupSend", new {Id = item.Id})">
-                                                    Отправить
-                                                </a>
-                                            </td>
                                         </tr>
                                     }
                                 </tbody>
@@ -127,7 +118,13 @@
             e.stopPropagation();
         });
     });
-
+    //$('#confirmBtn').on('click', function () {
+    //    var array = [];
+    //    $("input[type=checkbox][class='tdCheckBox']:checked").each(function () {
+    //        array.push($(this).val());
+    //    });
+    //    console.log(array.toString());
+    //});
     //$('#headCheckbox').on('click', function() {
     //    let val = $(this).is(":checked");
 
@@ -143,7 +140,6 @@
         let selectedIds = [];
 
         $('#checkboxes > tbody > tr').each(function() {
-            debugger;
             let orderId = $(this).find("td:eq(0)").find(".orderId").val();
             let checkBox = $(this).find("td:eq(0)").find(".tdCheckBox");
             let isChecked = checkBox.is(":checked");
@@ -151,34 +147,35 @@
             if (isChecked) {
                 selectedIds.push(orderId);
             }
-        });
+            $('#orderIds').val(selectedIds.toString());
 
-        debugger;
-
-        $("form").on("submit", function() {
-            $('#orderIds').val(selectedIds);
         });
+        console.log($('#orderIds').val());
+        //$("form").on("submit", function() {
+        //    //$('#orderIds').val(selectedIds);
+        
 
-        $.ajax({
-            type: 'Get',
-            url: '/order/createDelivery',
-            dataType: 'json',
-            data: { "orderIds": selectedIds },
-            statusCode: {
-                200: function(response) {
-                    //$('#confirmModal').modal('show');
-                    //l.stop();
-                    //$('#confirmBtn').removeClass('disabled');
-                    console.log("succ");
-                },
-                400: function(response) {
-                    //$('#errorModalBody').text(response.responseText);
-                    //$('#errorModal').modal('show');
-                    //l.stop();
-                    //$('#confirmBtn').removeClass('disabled');
-                    console.log("fail");
-                }
-            }
-        });
+        //$.ajax({
+        //    type: 'Get',
+        //    url: '/order/createDelivery',
+        //    dataType: 'json',
+        //    data: { "orderIds": selectedIds },
+        //    statusCode: {
+        //        200: function(response) {
+        //            //$('#confirmModal').modal('show');
+        //            //l.stop();
+        //            //$('#confirmBtn').removeClass('disabled');
+        //            console.log("succ");
+        //        },
+        //        400: function(response) {
+        //            //$('#errorModalBody').text(response.responseText);
+        //            //$('#errorModal').modal('show');
+        //            //l.stop();
+        //            //$('#confirmBtn').removeClass('disabled');
+        //            console.log("fail");
+        //        }
+        //    }
+        //});
+        //});
     });
 </script>
