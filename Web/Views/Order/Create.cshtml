@@ -202,7 +202,8 @@
 
             $('#lang').val(markerLongitude).change();
             $('#lat').val(markerLatitude).change();
-            $('#lat').trigger('change');
+            document.getElementById("lang").parentElement.classList.add('is-filled');
+            document.getElementById("lat").parentElement.classList.add('is-filled');
             //var x = document.getElementById("myLI").parentElement
             getAddress(currentPosition);
         });
