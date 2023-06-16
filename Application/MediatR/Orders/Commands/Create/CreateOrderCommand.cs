@@ -4,6 +4,7 @@ using Application.Common.Models;
 using Domain.Entities;
 using Domain.Enums;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.MediatR.Orders.Commands
 {
@@ -36,6 +37,7 @@ namespace Application.MediatR.Orders.Commands
         {
             try
             {
+                var shopLocation = _context.ShopLocations.FirstOrDefault(x => x.ShopId == request.ShopId);
                 var order = new Order
                 {
                     CustomerId = request.CustomerId,
@@ -47,7 +49,8 @@ namespace Application.MediatR.Orders.Commands
                     Lat = request.Lat,
                     TreckingNumber = "",
                     ShopId = request.ShopId,
-                    ShopLocationId = request.ShopLocationId,
+                    ShopLocationId = shopLocation.Id,
+                    OrderStatus = OrderStatus.Await,
                 };
 
                 var products = new List<OrderProduct>();
@@ -65,7 +68,7 @@ namespace Application.MediatR.Orders.Commands
                 _context.Orders.Add(order);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return Result.Success();
+                return Result.Success("Данные успешно сохранены");
             }
             catch (Exception ex)
             {

@@ -54,7 +54,7 @@ namespace Application.MediatR.Shop.Commands
                 _context.Shops.Add(shop);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return Result.Success();
+                return Result.Success("Данные успешно сохранены");
             }
             catch (Exception ex)
             {

@@ -36,7 +36,7 @@ namespace Application.MediatR.ShopProducts.Commands
                 _context.ShopProducts.UpdateRange(shopProducts);
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return Result.Success();
+                return Result.Success("Данные успешно сохранены");
             }
             catch (Exception ex)
             {

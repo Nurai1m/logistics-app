@@ -1,4 +1,6 @@
 ﻿using Application;
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using Domain.Entities;
 using Infrastructure;
 using Infrastructure.Persistance;
@@ -23,6 +25,8 @@ namespace Web
 
             services.AddApplication()
                 .AddInfrastructure(Configuration);
+            services
+                .AddNotyf(config => { config.DurationInSeconds = 30; config.IsDismissable = true; config.Position = NotyfPosition.TopCenter; });
 
             services.AddHttpContextAccessor();
             services
@@ -46,7 +50,7 @@ namespace Web
                 options.AccessDeniedPath = new PathString("/error/403");
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
                 options.LoginPath = "/account/login";
-                options.LogoutPath = "/home/index";
+                options.LogoutPath = "/statistic/index";
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
                 options.SlidingExpiration = true;
                 options.Cookie.IsEssential = true;
@@ -66,6 +70,8 @@ namespace Web
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseNotyf();
 
             var cultureInfo = new CultureInfo("en-US");
 

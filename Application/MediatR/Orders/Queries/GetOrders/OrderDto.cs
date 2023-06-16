@@ -11,5 +11,6 @@ namespace Application.MediatR.Orders.Queries
         public string TreckingNumber { get; set; }
         public string? Address { get; set; }
         public string Description { get; set; }
+        public OrderStatus OrderStatus { get; set; }
     }
 }

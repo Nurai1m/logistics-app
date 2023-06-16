@@ -24,5 +24,6 @@ namespace Domain.Entities
         public string? Lang { get; set; }
         public Guid ShopId { get; set; }
         public Shop Shop { get; set; }
+        public OrderStatus OrderStatus { get; set; }
     }
 }
